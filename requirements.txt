@@ -3,9 +3,13 @@ langchain>=0.2.0
 langchain-core>=0.2.0
 langchain-community>=0.2.0
 langchain-openai>=0.1.0
+langchain-mistralai>=0.1.0
 
 # OpenAI
 openai>=1.30.0
+
+# Mistral AI SDK (required by langchain-mistralai)
+mistralai>=0.0.10
 
 # Tavily Search Tool
 tavily-python>=0.3.0
@@ -14,6 +18,7 @@ tavily-python>=0.3.0
 beautifulsoup4>=4.12.0
 requests>=2.31.0
 lxml>=5.0.0
+html5lib>=1.1
 
 # Environment variables
 python-dotenv>=1.0.0
@@ -38,6 +43,3 @@ orjson>=3.9.0
 
 # Typing support (helps in bigger projects)
 pydantic>=2.5.0
-
-# Optional (for advanced parsing / HTML cleanup)
-html5lib>=1.1
