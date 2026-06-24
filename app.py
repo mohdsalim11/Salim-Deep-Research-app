@@ -2,6 +2,10 @@ import streamlit as st
 import time
 from agents import build_reader_agent, build_search_agent, writer_chain, critic_chain
 
+import streamlit as st
+
+api_key = st.secrets["MISTRAL_API_KEY"]
+
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Salim Research · AI Research Agent",
