@@ -1,26 +1,19 @@
-export async function researchAPI(query){
+export async function researchAPI(query) {
 
+  const response = await fetch(
+    "https://salim-deep-research-app.onrender.com/research-stream",
+    {
+      method: "POST",
 
-const response = await fetch(
-"http://127.0.0.1:8000/research-stream",
-{
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-method:"POST",
+      body: JSON.stringify({
+        query: query
+      })
+    }
+  );
 
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-query:query
-})
-
-}
-
-);
-
-
-return response;
-
-
+  return response;
 }

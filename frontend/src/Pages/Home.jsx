@@ -1,104 +1,58 @@
-import {useState} from "react";
+import { useState } from "react";
 
 import SearchBox from "../components/SearchBox";
 
 import ReportViewer from "../components/ReportViewer";
 
-import {researchAPI} from "../../services/api";
+import Home from "./pages/Home";
 
+import { researchAPI } from "../../services/api";
 
+function Home() {
+  const [query, setQuery] = useState("");
 
-function Home(){
+  const [result, setResult] = useState("");
 
+  const [loading, setLoading] = useState(false);
 
-const [query,setQuery]=useState("");
+  async function research() {
+    setResult("");
 
-const [result,setResult]=useState("");
+    setLoading(true);
 
-const [loading,setLoading]=useState(false);
+    const response = await researchAPI(query);
 
+    const reader = response.body.getReader();
 
+    const decoder = new TextDecoder();
 
-async function research(){
+    while (true) {
+      const { done, value } = await reader.read();
 
+      if (done) break;
 
-setResult("");
+      const chunk = decoder.decode(value, {
+        stream: true,
+      });
 
-setLoading(true);
+      setResult((prev) => prev + chunk);
+    }
 
+    setLoading(false);
+  }
 
-const response = await researchAPI(query);
+  return (
+    <div>
+      <SearchBox
+        query={query}
+        setQuery={setQuery}
+        research={research}
+        loading={loading}
+      />
 
-
-const reader=response.body.getReader();
-
-const decoder=new TextDecoder();
-
-
-
-while(true){
-
-
-const {done,value}=await reader.read();
-
-
-if(done)
-break;
-
-
-
-const chunk=decoder.decode(value,{
-stream:true
-});
-
-
-setResult(prev=>prev+chunk);
-
-
+      <ReportViewer result={result} />
+    </div>
+  );
 }
-
-
-setLoading(false);
-
-
-}
-
-
-
-return(
-
-<div>
-
-
-
-
-<SearchBox
-
-query={query}
-
-setQuery={setQuery}
-
-research={research}
-
-loading={loading}
-
-/>
-
-
-
-<ReportViewer
-
-result={result}
-
-/>
-
-
-</div>
-
-
-)
-
-}
-
 
 export default Home;
