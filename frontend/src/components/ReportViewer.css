@@ -1,0 +1,26 @@
+.report-container{
+
+    width:80%;
+
+    margin:70px auto;
+}
+
+.report-container h2{
+
+    margin-bottom:25px;
+
+    color:#0f172a;
+}
+
+.report-card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:40px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+
+    line-height:1.8;
+}

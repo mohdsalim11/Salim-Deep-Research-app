@@ -1,4 +1,4 @@
-from agents import build_reader_agent , build_search_agent , writer_chain , critic_chain
+from agents import build_reader_agent, build_search_agent, writer_chain, critic_chain
 
 def run_research_pipeline(topic : str) -> dict:
 
@@ -72,3 +72,72 @@ def run_research_pipeline(topic : str) -> dict:
 if __name__ == "__main__":
     topic = input("\n Enter a research topic : ")
     run_research_pipeline(topic)
+
+
+#now we impliment : Streaming ( 
+# Searching web... ✅,
+# Reading documents... ✅,
+# Writing report... ✅,
+# Final answer... ✅)
+
+def run_research_pipeline_stream(query):
+
+# Searching web... ✅,
+
+    yield "🔍 Searching web...\n\n"
+    search_agent = build_search_agent()
+    search_result = search_agent.invoke({
+        "messages":[
+            ("user",
+            f"Find information about {query}")
+        ]
+
+    })
+
+    search_content = search_result['messages'][-1].content
+    
+
+# Reading documents... ✅,
+
+    yield "📚 Reading documents...\n\n"
+    reader_agent = build_reader_agent()
+    reader_result = reader_agent.invoke({
+        "messages":[
+
+            ("user",
+
+            f"Read this information:\n{search_content}")
+
+        ]
+
+    })
+
+    reader_content = reader_result['messages'][-1].content
+
+
+# Writing report... ✅,
+
+
+    yield "✍️ Writing report...\n\n"
+    final_result = writer_chain.invoke({
+            "topic":query,
+
+        "research":
+        reader_content
+
+    })
+
+
+# Final answer... ✅)
+
+    yield "🔎 Critic agent checking...\n\n"
+    critic_result = critic_chain.invoke({
+        "report":final_result
+
+    })
+
+
+    yield "✅ Final answer ready...\n\n"
+    yield final_result
+
+

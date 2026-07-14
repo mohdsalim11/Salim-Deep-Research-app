@@ -12,6 +12,16 @@ env/
 # Environment variables
 .env
 
+# Backend
+Backend/__pycache__/
+Backend/*.pyc
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
 
 
 
