@@ -4,8 +4,6 @@ import SearchBox from "../components/SearchBox";
 
 import ReportViewer from "../components/ReportViewer";
 
-import Home from "./pages/Home";
-
 import { researchAPI } from "../../services/api";
 
 function Home() {
